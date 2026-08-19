@@ -1,0 +1,2894 @@
+{
+  "metadata": {
+    "schema_version": "0.1",
+    "source_file": "card_df.csv",
+    "card_count": 94,
+    "notes": [
+      "Original card wording is preserved under source_text.effect. Parsed effects are intended as a starting point for the Python rules engine; cards marked needs_review should be confirmed before finalizing game logic."
+    ]
+  },
+  "cards": [
+    {
+      "id": "P_001",
+      "name": "Night Vision Goggles",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "isolated_personnel"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "draw_card",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "isolated_personnel",
+          "count": 1
+        }
+      ],
+      "description": "Improve Visibility in low light conditions",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "IP",
+        "strength_points": "0",
+        "effect": "Draw 1 IP card"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_002",
+      "name": "Tactical Landing Zone Illumination",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "isolated_personnel"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "multiply_effect",
+          "trigger": "on_effect_play",
+          "duration": "phase",
+          "target": "active_positive_isolated_personnel",
+          "amount": 2
+        }
+      ],
+      "description": "Illuminates landing zone",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "IP",
+        "strength_points": "0",
+        "effect": "Doubles effect of active positive IP card"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_003",
+      "name": "Low-Level Flight Capability",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "reveal_card",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "hidden_threat",
+          "count": 1
+        },
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "phase",
+          "target": "revealed_threat",
+          "amount": -1
+        }
+      ],
+      "description": "Enables platform to fly clost to the ground & avoid Radar",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "threats",
+        "strength_points": "0",
+        "effect": "reveal one threat card & reduce strength by 1"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "Confirm whether the -1 applies to the revealed card specifically."
+      ]
+    },
+    {
+      "id": "P_004",
+      "name": "Rescue Hoist",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "win_condition"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "set_flag",
+          "trigger": "on_effect_play",
+          "duration": "game",
+          "target": "game",
+          "flag": "isolated_personnel_rescued",
+          "value": true
+        }
+      ],
+      "description": "High capacity hoist able to lift 600lbs",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "Win Condition",
+        "strength_points": "0",
+        "effect": "Card rescues IP"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "This appears tied to the win condition; exact prerequisite/target should be confirmed."
+      ]
+    },
+    {
+      "id": "P_005",
+      "name": "Extend Mission Duration",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "set_play_limit",
+          "trigger": "on_effect_play",
+          "duration": "next_turn",
+          "target": "escort",
+          "count": 2
+        }
+      ],
+      "description": "in-flight refueling capabilities",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "escort",
+        "strength_points": "0",
+        "effect": "Allow Escort player to play 2 cards next turn"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_006",  
+      "name": "Advanced Defensive Systems",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "setback"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "suppress_effect",
+          "trigger": "on_effect_play",
+          "duration": "phase",
+          "target": "setback",
+          "count": 1
+        }
+      ],
+      "description": "radar & missle warning systems",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "Setback",
+        "strength_points": "0",
+        "effect": "Negates effect of one setback card this phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_007",
+      "name": "Machine Gun Self-Defense",
+      "card_type": "player",
+      "deck": "rescue",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 2,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "engagement",
+          "target": "ground_threat",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "two door mounted 7.26mm machine guns go BRRT!",
+      "source_text": {
+        "category": "Rescue Platform",
+        "targeted_category": "ground",
+        "strength_points": "2",
+        "effect": "Weakens a ground based threat card by 1"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_008",
+      "name": "Joint Direct Attack Munitions Strike",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "sam",
+        "ground"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "Percision-guided JDAM",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "SAM/Ground",
+        "strength_points": "5",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_009",
+      "name": "F-16 Wild Weasel Operation",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "sam"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "a_sam",
+          "amount": -3,
+          "count": 1
+        }
+      ],
+      "description": "F-16 execures a wild weasel mission, drawing enemy fire",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "SAM",
+        "strength_points": "0",
+        "effect": "Reduce a SAM card by 3"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_010",
+      "name": "Dogfight Maneuverability",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "air"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "F-15 supperior dogfighting capabilities",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "Air",
+        "strength_points": "5",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_011",
+      "name": "High-Altitude Advantage",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "air"
+      ],
+      "strength": 2,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "grant_immunity",
+          "trigger": "on_effect_play",
+          "duration": "engagement",
+          "target": "self",
+          "scope": "negative_effects"
+        }
+      ],
+      "description": "F-15 gains superior position at high altitudes",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "Air",
+        "strength_points": "2",
+        "effect": "Immune to negative effects"
+      },
+      "needs_review": false,
+      "review_notes": [
+        "Confirm whether immunity lasts only for this engagement or while the card is in play. ANSWER: only lasts for engagement"
+      ]
+    },
+    {
+      "id": "P_012",
+      "name": "Multi-Radar Lock-on",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "air"
+      ],
+      "strength": 4,
+      "usage_mode": "dual_use",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "air",
+          "amount": -2,
+          "count": 2
+        }
+      ],
+      "description": "Advanced radar system to detect and engage enemy aircraft",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "Air",
+        "strength_points": "4",
+        "effect": "Ruduce 2 Air Targets by 2 points"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_013",
+      "name": "SEAD Mission",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "sam"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "Target and nuetralize enemy SAM sites",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "SAM",
+        "strength_points": "5",
+        "effect": "Engages one active SAM"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_014",
+      "name": "Targeting POD assistance",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "escort_player"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "escort",
+          "amount": 2,
+          "count": 2
+        }
+      ],
+      "description": "Advanced targeting systems assist in ID'ing threats",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "Escort Player",
+        "strength_points": "0",
+        "effect": "Add 2 points to 2 escort cards"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_015",
+      "name": "F-16 Percision Strike",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 4,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "F-16 Delivers pinpoint strikes on Enemy Ground Units",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "ground",
+        "strength_points": "4",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_016",
+      "name": "F-15 Air Superiority",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "air"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "F-15 Dominates the skies privideding critical air supiriority",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "Air",
+        "strength_points": "5",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_017",
+      "name": "Beyond Line Of Sight Engagement",
+      "card_type": "player",
+      "deck": "strike",
+      "target_categories": [
+        "air"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "F-15 launches AIM-120 AMRAAM engaging enemy aircraft",
+      "source_text": {
+        "category": "Strike Support",
+        "targeted_category": "Air",
+        "strength_points": "5",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_018",
+      "name": "A-10 Gatling Gun Suppression",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "A-10 GAU-8 delivers devastating firepower",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "ground",
+        "strength_points": "6",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_019",
+      "name": "Enemy Movement Disruption",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 2,
+      "usage_mode": "dual_use",
+      "effects": [
+        {
+          "type": "prevent_draw",
+          "trigger": "on_effect_play",
+          "duration": "phase",
+          "target": "ground_threat"
+        }
+      ],
+      "description": "Target strikes disrupt enemy reinforcements heading to the IP's location",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "ground",
+        "strength_points": "2",
+        "effect": "prevents enemy ground cards from geing drawn this phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_020",
+      "name": "Smoke marker deployment",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "strike"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "strike",
+          "amount": 1,
+          "count": 2
+        }
+      ],
+      "description": "Marks enemy positions with smoke for accurate targeting by",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "Strike Platform",
+        "strength_points": "0",
+        "effect": "Add 1 point to 2 Strike cards in play"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_021",
+      "name": "Danger Close CAS",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 3,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "ground_threat",
+          "amount": -2,
+          "count": 1
+        }
+      ],
+      "description": "A-10 provides close ari support in immediate proximity to frendlies",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "Ground",
+        "strength_points": "3",
+        "effect": "reduce ground threat card by 2"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_022",
+      "name": "Sandy-IP Coordination",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "isolated_personnel"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "draw_card",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "isolated_personnel",
+          "count": 1
+        }
+      ],
+      "description": "A-10 establishes seccure comms with the IP",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "ip",
+        "strength_points": "0",
+        "effect": "Draw IP card"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_023",
+      "name": "Command & Control Coordination",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "friendly_support",
+          "amount": 1
+        }
+      ],
+      "description": "As mission commander, the escort player coordinates all assets for maximum efficiency",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "Support",
+        "strength_points": "0",
+        "effect": "All friendly support cards gain 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_024",
+      "name": "Airborne Situational Awareness",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "face_down_threat",
+        "strike"
+      ],
+      "strength": 2,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "reveal_card",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "hidden_threat",
+          "count": 1
+        },
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "strike",
+          "amount": 1,
+          "count": 1
+        }
+      ],
+      "description": "A-10 gathers and relays real-time intel to other players",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "Face-down Threat & Strike",
+        "strength_points": "2",
+        "effect": "Flip one Face-down threat card & add 1 point to 1 strike card"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_025",
+      "name": "Rocket Strike",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 4,
+      "usage_mode": "dual_use",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "ground",
+          "amount": -1,
+          "count": 2
+        }
+      ],
+      "description": "A-10 delievers a percise rocket strike to neutralize enemy positions",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "Ground",
+        "strength_points": "4",
+        "effect": "Reduces 2 ground threats by 1"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_026",
+      "name": "Airbone Threat mitigation",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "air"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "air_threat",
+          "amount": -2,
+          "count": 1
+        }
+      ],
+      "description": "Coordinates with fighter assets to neutralize air threats",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "Air",
+        "strength_points": "0",
+        "effect": "Reduces strength of one air threat by 2"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_027",
+      "name": "Maverick Missle Percision Strike",
+      "card_type": "player",
+      "deck": "escort",
+      "target_categories": [
+        "ground"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_only",
+      "effects": [],
+      "description": "A-10 Fires an AGM-65 Maverick to destroy enemy targets",
+      "source_text": {
+        "category": "Escort",
+        "targeted_category": "ground",
+        "strength_points": "6",
+        "effect": "none"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_028",
+      "name": "Signal Intercept",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "threat",
+          "amount": -2,
+          "count": 2
+        },
+        {
+          "type": "engage_threat",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "same_selected_threats",
+          "count": 2
+        }
+      ],
+      "description": "Intercept enemy communications to reveal enemy plans",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "threats",
+        "strength_points": "0",
+        "effect": "Reduce 2 Threats by 2; Threats engaged"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_029",
+      "name": "Combat Coordination",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "support",
+          "amount": 2,
+          "count": 2
+        }
+      ],
+      "description": "Coordinates air-to-air and strike platforms to strike enemy units",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "Support",
+        "strength_points": "0",
+        "effect": "2 Support Cards receive 2 points"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_030",
+      "name": "Radar Jamming",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "threat",
+          "amount":-2,
+          "count": 1
+        }
+      ],
+      "description": "Jams enemy radar to reduce their effectiveness",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "threats",
+        "strength_points": "0",
+        "effect": "Weakens threat card by 2"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_031",
+      "name": "Surveillance Sweep",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "suppress_effect",
+          "trigger": "on_effect_play",
+          "duration": "turn",
+          "target": "threat",
+          "count": 1
+        }
+      ],
+      "description": "Conducts a wide-area radar sweep, helping allies target threats more effectively",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "threats",
+        "strength_points": "0",
+        "effect": "Disables one threat effect for 1 turn"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_032",
+      "name": "Enemy Movement Prediction",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "reset_card_use",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "friendly_card_that_won_engagement",
+          "count": 1
+        }
+      ],
+      "description": "Predicts enemy movement patterns, giving a tactical advantage",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "Support",
+        "strength_points": "0",
+        "effect": "re-use a card that has already won an engagement on the board"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_033",
+      "name": "Electronic Warefare support",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "support",
+          "amount": 1,
+          "count": 4
+        }
+      ],
+      "description": "Provides electronic interference making enemies easier to target",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "Support",
+        "strength_points": "0",
+        "effect": "4 support cards gain 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_034",
+      "name": "Target Identification",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "override_usage_mode",
+          "trigger": "on_effect_play",
+          "duration": "phase",
+          "target": "dual_use_support",
+          "mode": "attack_and_effect"
+        }
+      ],
+      "description": "Confirms and prioritizes enemy targets",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "Support",
+        "strength_points": "0",
+        "effect": "All Dual-use support cards can use both attack and effect"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_035",
+      "name": "Real-time Battle Intel",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "setback"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "suppress_effect",
+          "trigger": "on_effect_play",
+          "duration": "phase",
+          "target": "setback",
+          "count": 1
+        }
+      ],
+      "description": "Continuously updates all assets on battlefield changes",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "Setback",
+        "strength_points": "0",
+        "effect": "Negates the effect of one setgack card"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "Confirm how long the selected setback is suppressed; phase duration is currently assumed."
+      ]
+    },
+    {
+      "id": "P_036",
+      "name": "Communication Relay",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "players"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "allow_communication",
+          "trigger": "on_effect_play",
+          "duration": "round",
+          "target": "players"
+        }
+      ],
+      "description": "Enhances coordination by relaying crucial intel",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "players",
+        "strength_points": "0",
+        "effect": "Players can communicate during the round"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "P_037",
+      "name": "Real-Time Threat Detection",
+      "card_type": "player",
+      "deck": "c2",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 0,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "reveal_card",
+          "trigger": "on_effect_play",
+          "duration": "instant",
+          "target": "hidden_threat",
+          "count": 1
+        }
+      ],
+      "description": "Provides immediate information on nearby threats",
+      "source_text": {
+        "category": "C2",
+        "targeted_category": "threats",
+        "strength_points": "0",
+        "effect": "Filp one face down threat card"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_038",
+      "name": "Unexpected Weather Front",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_phase_setup",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "hidden_threat_count",
+          "amount": 1
+        }
+      ],
+      "description": "Sudden Adverse weather reduces visibility and radar effectiveness",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "One more threat face down per phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_039",
+      "name": "Increased Enemy Patrols",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_phase_setup",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "hidden_threat_count",
+          "amount": 1
+        }
+      ],
+      "description": "The enemy is on high alert, leading to more threats in the area",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "Additional face-down threat per phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_040",
+      "name": "Friendly Fire Incident",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "Miscommunication leads to an accidental engagement on allied forces",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards reduced by 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_041",
+      "name": "Communications Interference",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "prevent_communication",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "players",
+          "scope": "between_phases"
+        },
+        {
+          "type": "suppress_named_card",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "communication_relay"
+        }
+      ],
+      "description": "Enemy jamming disrupts comms between assets",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "",
+        "strength_points": "",
+        "effect": "Players cannot communicate btw phases (negates C2 communication relay card)"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_042",
+      "name": "EW Countermeasures",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "c2"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "disable_cards",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "c2"
+        }
+      ],
+      "description": "Enemy deploys advanced jamming limiting support capabilites",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "C2",
+        "strength_points": "",
+        "effect": "All C2 cards disabled until card removed"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_043",
+      "name": "Fuel Shortage",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "Limited fuel supply forces assets to ration movement",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards reduced by 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_044",
+      "name": "Delayed Reinforcements",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "all_players",
+          "count": 1,
+          "frequency": "per_phase"
+        }
+      ],
+      "description": "Key Assets are delayed due to logistical issue",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All players discard one card per phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "SB_045",
+      "name": "Loss of GPS Signal",
+      "card_type": "setback",
+      "deck": "setback",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "while_active",
+          "duration": "until_removed",
+          "target": "support",
+          "amount": -2
+        }
+      ],
+      "description": "Enemy interference disables GPS",
+      "source_text": {
+        "category": "Setback",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards reduced by 2 points"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_046",
+      "name": "Directive Compliance",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "setback"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "remove_card",
+          "trigger": "on_draw",
+          "duration": "instant",
+          "target": "setback",
+          "count": 1
+        }
+      ],
+      "description": "IP can effectively coordinate with rescue forces",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "Setback",
+        "strength_points": "",
+        "effect": "Remove one Setback Card"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_047",
+      "name": "EPA Success",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "reveal_all",
+          "trigger": "on_draw",
+          "duration": "instant",
+          "target": "threats_in_current_phase"
+        }
+      ],
+      "description": "IP knows how to evade and conceals their location",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "All threat cards revealed in phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_048",
+      "name": "CSEL Proficiency",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_draw",
+          "duration": "phase",
+          "target": "support",
+          "amount": 2
+        }
+      ],
+      "description": "IP can safely communicate and provide percise GPS coordinates for rescue forces",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards gain 2 points"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_049",
+      "name": "Authentication Success",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "remove_card",
+          "trigger": "on_draw",
+          "duration": "game",
+          "target": "one_threat_per_phase",
+          "count": 1
+        }
+      ],
+      "description": "IP successfully recalls word of the day; (keep this card, do not reshuffle)",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "Remove one threat card from each phase"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "Confirm whether cards are removed from future phase decks immediately and whether the current phase is included."
+      ]
+    },
+    {
+      "id": "IP_050",
+      "name": "Sandstorm Relocation",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_draw",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "IP moves location without communicating to rescue forces",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards reduced by 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_051",
+      "name": "Poor Pickup Location",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "rescue",
+        "escort"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_draw",
+          "duration": "phase",
+          "target": [
+            "rescue",
+            "escort"
+          ],
+          "count": 1
+        }
+      ],
+      "description": "IP selects location for pickup that is not conducive for HH-60's to hover",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "Recovery & Escort",
+        "strength_points": "",
+        "effect": "Recovery and Escort discard 1 card this phase"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_052",
+      "name": "Signal Device Error",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_draw",
+          "duration": "phase",
+          "target": "threat",
+          "amount": 1
+        }
+      ],
+      "description": "IP uses the wrong signal device and alerts enemy forces",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "threats gain 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "IP_053",
+      "name": "Clear-Grid Danger",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "draw_threat",
+          "trigger": "on_draw",
+          "duration": "instant",
+          "target": "current_phase_threat_deck",
+          "count": 1
+        }
+      ],
+      "description": "Passed grid to rescue platform in the clear increasing risk of capture",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "Draw additional threat card"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "Confirm whether the additional threat follows normal face-up/face-down draw rules."
+      ]
+    },
+    {
+      "id": "IP_054",
+      "name": "Authentication Delay",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "repeat_phase",
+          "trigger": "on_draw",
+          "duration": "instant",
+          "target": "previous_phase"
+        }
+      ],
+      "description": "IP unable to retrieve word of the day; discard if Authentication Success is active",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "",
+        "strength_points": "",
+        "effect": "Repeat previous phase"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "Confirm how deck state, discarded cards, and persistent effects reset when repeating a phase."
+      ]
+    },
+    {
+      "id": "IP_055",
+      "name": "CSEL misuse",
+      "card_type": "isolated_personnel",
+      "deck": "isolated_personnel",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_draw",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "IP uses the incorrect survival freq.",
+      "source_text": {
+        "category": "IP",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards reduced by 1 point"
+      },
+      "needs_review": false
+    },
+    {
+      "id": "T_056",
+      "name": "Radar Relocation (EW threat card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "c2"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "disable_card",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "c2",
+          "count": 1
+        }
+      ],
+      "description": "Iranian Forces reposition radar sites to avoid detection",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "C2",
+        "strength_points": "",
+        "effect": "Discard one C2 card this phase"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_057",
+      "name": "EW Saturation Attack (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        },
+        {
+          "type": "prevent_communication",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "players",
+          "scope": "between_phases"
+        }
+      ],
+      "description": "EW systems overwhelm US frequencies, disrupting coordination btw rescue units",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "support",
+        "strength_points": "",
+        "effect": "Reduces all support cards by one; no communication between phases; effect active after for remainder of phase"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "The wording \"effect active after for remainder of phase\" is ambiguous; currently modeled as activating on engagement for the remainder of the phase."
+      ],
+      "phase": 1,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_058",
+      "name": "Electronic Warefare Disruption (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "Iranian EW units jam GPS and Comm systems",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards lose 1 point for this phase"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_059",
+      "name": "Communication Blackout (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "prevent_buffs",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "players"
+        }
+      ],
+      "description": "Iranian forces jam long-range communications btw US command and rescue teams",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "Players cannot support/buff cards; active entire phase"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_060",
+      "name": "High-Value Target Zone (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 4,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "while_source_active",
+          "target": "threat",
+          "amount": 2
+        }
+      ],
+      "description": "IP is located in a heavily fortified area, guarded by Iranian elite units",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Support",
+        "strength_points": "4",
+        "effect": "All threat cards gain 2 points until defeated"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_061",
+      "name": "Special Forces Teams (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "setback"
+      ],
+      "strength": 4,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "draw_setback",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "setback_deck",
+          "count": 1
+        }
+      ],
+      "description": "Iranian special Forces deployed to locate and capture isolated personnel",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Setback",
+        "strength_points": "4",
+        "effect": "Add a setback card"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_062",
+      "name": "Hostile militia Networks (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 3,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "draw_threat",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "current_phase_threat_deck",
+          "count": 1,
+          "reveal": true
+        }
+      ],
+      "description": "Militia forces allied with Iran set Traps and report IP movements",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "threats",
+        "strength_points": "3",
+        "effect": "Add a threat card face-up"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_063",
+      "name": "Air Defense Redundancy (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort",
+        "strike"
+      ],
+      "strength": 2,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "escort",
+          "amount": -1,
+          "count": 1
+        },
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "strike",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "Iran deploys multiple overlapping air defense systems to protect critical zones",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Escort & Strike",
+        "strength_points": "2",
+        "effect": "One Escort and One Strike card lose 1 point"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "sam"
+      ]
+    },
+    {
+      "id": "T_064",
+      "name": "SA-15 Gauntlet Deployment (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "rescue"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "prevent_named_cards",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "player_cards",
+          "card_names": [
+            "Low Level Flight Capability",
+            "Hovering Percision mode"
+          ]
+        }
+      ],
+      "description": "Mobile SAM units target low and high-altitude threats with precision-guided missiles",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Rescue",
+        "strength_points": "5",
+        "effect": "Prevents use of \"Low Level Flight Capability\" and \"Hovering Percision mode\" cards"
+      },
+      "needs_review": true,
+      "phase": 1,
+      "threat_categories": [
+        "sam"
+      ],
+      "review_notes": [
+        "Effect references \"Hovering Percision mode\", but no card with that exact name appears in this CSV."
+      ]
+    },
+    {
+      "id": "T_065",
+      "name": "Enemy Air Patrols (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_escort_platform_cards",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "Iranian fighter jets patrol the area increasing the risk for US rescue aircraft",
+      "source_text": {
+        "category": "Phase 1 Threat",
+        "targeted_category": "Escort",
+        "strength_points": "5",
+        "effect": "Reduces the effectiveness of all escort platform cards by 1"
+      },
+      "needs_review": false,
+      "phase": 1,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_066",
+      "name": "F-14 Tomcat Interceptors (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 4,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "escort",
+          "count": 1
+        }
+      ],
+      "description": "Iranian F-14s patrol the skies, using long-range phoenix missiles to engage",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "Escort",
+        "strength_points": "4",
+        "effect": "Discard one Escort Card"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_067",
+      "name": "MIG-29 Fulcrum Defense (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_escort_cards",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "Iranian MiG-29s conduct aggressive patrols, engaging US air assets",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "Escort",
+        "strength_points": "5",
+        "effect": "Reduce all escort cards by 1"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_068",
+      "name": "Advanced SAM Barrage (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "strike"
+      ],
+      "strength": 3,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "strike",
+          "count": 1
+        }
+      ],
+      "description": "Iranian forces launch a coordinated missile barrage from multiple SAM platforms",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "Strike",
+        "strength_points": "3",
+        "effect": "Discard one Strike Card"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "sam"
+      ]
+    },
+    {
+      "id": "T_069",
+      "name": "SA-5 Gauntlet Deployment (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "strike"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "prevent_named_cards",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "player_cards",
+          "card_names": [
+            "F-16 Percision Strike",
+            "BVR Engagement"
+          ]
+        }
+      ],
+      "description": "Mobile SAM units target low and high-altitude threats with precision-guided missiles",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "Strike",
+        "strength_points": "5",
+        "effect": "Prevents the use of \"F-16 Percision Strike\" and \"BVR Engagement\""
+      },
+      "needs_review": true,
+      "phase": 2,
+      "threat_categories": [
+        "sam"
+      ],
+      "review_notes": [
+        "Effect references \"BVR Engagement\", but the closest card name in the CSV is \"Beyond Line Of Sight Engagement\"."
+      ]
+    },
+    {
+      "id": "T_070",
+      "name": "Radar Relocation (EW threat card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "c2"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "c2",
+          "count": 1
+        }
+      ],
+      "description": "Iranian Forces reposition radar sites to avoid detection",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "C2",
+        "strength_points": "",
+        "effect": "Discard one C2 card this phase"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_071",
+      "name": "Cyber Warfare Attack (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "c2"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "c2",
+          "count": 1
+        }
+      ],
+      "description": "Iranian cyber units disable US navigation systems",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "C2",
+        "strength_points": "",
+        "effect": "Discard one C2 card this phase"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_072",
+      "name": "Air Defense Command Coordination (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "all_threats",
+          "amount": 1
+        }
+      ],
+      "description": "Iran's air defense command integrates real-time data, optimizing responses",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "threats",
+        "strength_points": "",
+        "effect": "Add 1 point to all threats; active after defeating card"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_073",
+      "name": "IRGC Special Forces (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_escort_cards",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "Iranian Revolutionary Guard Corps deploy elite units to search for IP",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "Escort",
+        "strength_points": "5",
+        "effect": "Reduces all Escort cards by 1"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_074",
+      "name": "Hostile militia Networks (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "draw_threat",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "current_phase_threat_deck",
+          "count": 1,
+          "reveal": true
+        }
+      ],
+      "description": "Militia forces allied with Iran set Traps and report IP movements",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "threats",
+        "strength_points": "5",
+        "effect": "Add a threat card face-up"
+      },
+      "needs_review": false,
+      "phase": 2,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_075",
+      "name": "EW Saturation Attack (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        },
+        {
+          "type": "prevent_communication",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "players",
+          "scope": "between_phases"
+        }
+      ],
+      "description": "EW systems overwhelm US frequencies, disrupting coordination btw rescue units",
+      "source_text": {
+        "category": "Phase 2 Threat",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "Reduces all support cards by one; no communication between phases; effect active after for remainder of phase"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "The wording \"effect active after for remainder of phase\" is ambiguous; currently modeled as activating on engagement for the remainder of the phase."
+      ],
+      "phase": 2,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_076",
+      "name": "Enemy Air Patrols (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_escort_cards",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "Iranian fighter jets patrol the area increasing the risk for US rescue aircraft",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Escort",
+        "strength_points": "5",
+        "effect": "Reduces all Escort cards by 1"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_077",
+      "name": "F-14 Tomcat Interceptors (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "escort",
+          "count": 1
+        }
+      ],
+      "description": "Iranian F-14s patrol the skies, using long-range phoenix missiles to engage",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Escort",
+        "strength_points": "5",
+        "effect": "Discard one Escort Card"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_078",
+      "name": "MIG-29 Fulcrum Defense (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_escort_cards",
+          "amount": -2,
+          "count": 1
+        }
+      ],
+      "description": "Iranian MiG-29s conduct aggressive patrols, engaging US air assets",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "escort",
+        "strength_points": "6",
+        "effect": "reduces all Escort cards by 2"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_079",
+      "name": "Special Forces Teams (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "all_threats",
+          "amount": 2
+        }
+      ],
+      "description": "Iranian special Forces deployed to locate and capture isolated personnel",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "threats",
+        "strength_points": "6",
+        "effect": "add 2 points to all threats"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_080",
+      "name": "Armored Patrols (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "threat"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "draw_threat",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "current_phase_threat_deck",
+          "count": 1,
+          "reveal": true
+        }
+      ],
+      "description": "Heavily armed iranian ground patrols in armored vehicles actively search for the IP",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "threats",
+        "strength_points": "6",
+        "effect": "Add a threat card face-up & all ground threats +1"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_081",
+      "name": "Motar Fire (SAM/Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "support",
+          "amount": -1,
+          "count": 4
+        }
+      ],
+      "description": "Iranian forces use indirect fire to target areas where the IP or rescue forces may be hiding",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Support",
+        "strength_points": "5",
+        "effect": "4 support cards lose 1 point"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "sam",
+        "ground"
+      ]
+    },
+    {
+      "id": "T_082",
+      "name": "Heavy Anti-Aircraft Guns (SAM/Gound Threat Card",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "disable_card",
+          "trigger": "on_engage",
+          "duration": "turn",
+          "target": "support",
+          "count": 1
+        }
+      ],
+      "description": "High-caliber anti-aircraft weapons are positioned along expected flight paths, targeting rescue helicopters",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Support",
+        "strength_points": "6",
+        "effect": "Disables one support card"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "sam",
+        "ground"
+      ]
+    },
+    {
+      "id": "T_083",
+      "name": "Mobile SAM launchers (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "strike"
+      ],
+      "strength": 4,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_strike_cards",
+          "amount": -1,
+          "count": 1
+        }
+      ],
+      "description": "Mobile surface-to-air missile systems target US helicopters",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Strike",
+        "strength_points": "4",
+        "effect": "Reduces all Strike cards by 1"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "sam"
+      ]
+    },
+    {
+      "id": "T_084",
+      "name": "Electronic Warfare Jamming (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "Iran deploys EW systems to interfere with GPS and communication signals",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards lose 1 point for this phase"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_085",
+      "name": "Communication Blackout (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "prevent_buffs",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "players"
+        }
+      ],
+      "description": "Iranian forces jam long-range communications btw US command and rescue teams",
+      "source_text": {
+        "category": "Phase 3 Threat",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "Players cannot support/buff cards; active entire phase"
+      },
+      "needs_review": false,
+      "phase": 3,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_086",
+      "name": "IRGC Special Forces (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "escort",
+        "strike"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "escort",
+          "count": 1
+        },
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "rescue",
+          "count": 1
+        }
+      ],
+      "description": "Iranian Revolutionary Guard Corps deploy elite units to search for IP",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Escort & Strike",
+        "strength_points": "6",
+        "effect": "Discard one Escort Card & Rescue Card"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "Targeted category says \"Escort & Strike\", while effect text says discard one Escort card and one Rescue card. The parsed effect follows the effect text for now."
+      ],
+      "phase": 4,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_087",
+      "name": "Militia Ambush (Ground Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "all_support_cards",
+          "amount": -2,
+          "count": 1
+        }
+      ],
+      "description": "Local militia aligned with Iranian forces set up ambushes",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Support",
+        "strength_points": "5",
+        "effect": "Decrease all support cards by 2"
+      },
+      "needs_review": false,
+      "phase": 4,
+      "threat_categories": [
+        "ground"
+      ]
+    },
+    {
+      "id": "T_088",
+      "name": "Disinformation Campaign (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "setback"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "prevent_setback_removal",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "setbacks"
+        },
+        {
+          "type": "draw_setback",
+          "trigger": "on_turn_end",
+          "duration": "while_source_active",
+          "target": "setback_deck",
+          "count": 1,
+          "condition": "source_not_defeated"
+        }
+      ],
+      "description": "iran spreads false information to delay US operations",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Setback",
+        "strength_points": "",
+        "effect": "Cannot remove setbacks this phase; every full turn this card is not defeated draw an additional setback (idk how this card is \"defeated\" must figure that out)"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "The card text itself says its defeat method is unresolved; define how an effect-only EW threat can be defeated.",
+        "Defeat condition is explicitly unresolved in the source effect text."
+      ],
+      "phase": 4,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_089",
+      "name": "Electornic Warfare Jamming (EW Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": null,
+      "usage_mode": "effect_only",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_reveal",
+          "duration": "phase",
+          "target": "support",
+          "amount": -1
+        }
+      ],
+      "description": "Iran deploys EW systems to interfere with GPS and communication signals",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Support",
+        "strength_points": "",
+        "effect": "All support cards lose 1 point for this phase"
+      },
+      "needs_review": false,
+      "phase": 4,
+      "threat_categories": [
+        "ew"
+      ]
+    },
+    {
+      "id": "T_090",
+      "name": "ManPADs Ambush (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "rescue"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "rescue",
+          "count": 1
+        }
+      ],
+      "description": "Man-Portable Air Defense systems target low-flying aircraft",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Rescue",
+        "strength_points": "5",
+        "effect": "Discard a rescue card"
+      },
+      "needs_review": false,
+      "phase": 4,
+      "threat_categories": [
+        "sam"
+      ]
+    },
+    {
+      "id": "T_091",
+      "name": "Heavy Anti-Aircraft Guns (SAM/Gound Threat Card",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "air",
+        "rescue"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "air_support",
+          "amount": -2
+        },
+        {
+          "type": "force_discard",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "rescue",
+          "count": 1
+        }
+      ],
+      "description": "High-caliber anti-aircraft weapons are positioned along expected flight paths, targeting rescue helicopters",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Air & Rescue",
+        "strength_points": "6",
+        "effect": "All air support cards lose 2 points & discard a Rescue Card"
+      },
+      "needs_review": true,
+      "review_notes": [
+        "\"Air support cards\" is not a deck/category label in the CSV; confirm which player cards count as air support."
+      ],
+      "phase": 4,
+      "threat_categories": [
+        "sam",
+        "ground"
+      ]
+    },
+    {
+      "id": "T_092",
+      "name": "Surface-To-Air Missile Site (SAM Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "air",
+        "rescue"
+      ],
+      "strength": 7,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "prevent_card_play",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "rescue"
+        },
+        {
+          "type": "modify_strength",
+          "trigger": "on_engage",
+          "duration": "phase",
+          "target": "air_support",
+          "amount": -2
+        }
+      ],
+      "description": "A highly capable Iranian SA-6 site covers a wide range and capable of engaging high-altitude aircraft",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Air & Rescue",
+        "strength_points": "7",
+        "effect": "Prevents Rescue cards from being played & all air support lose 2 points"
+      },
+      "needs_review": true,
+      "phase": 4,
+      "threat_categories": [
+        "sam"
+      ],
+      "review_notes": [
+        "\"Air support\" is not a deck/category label in the CSV; confirm which player cards count as air support."
+      ]
+    },
+    {
+      "id": "T_093",
+      "name": "High-Altitude Interceptors (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "c2"
+      ],
+      "strength": 6,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "prevent_strength_bonuses",
+          "trigger": "on_engage",
+          "duration": "instant",
+          "target": "c2"
+        }
+      ],
+      "description": "Iranian F-4s intercept and engage US air assets",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "C2",
+        "strength_points": "6",
+        "effect": "prevents C2 cards from provideing strength bonuses"
+      },
+      "needs_review": false,
+      "phase": 4,
+      "threat_categories": [
+        "air"
+      ]
+    },
+    {
+      "id": "T_094",
+      "name": "F-14 Tomcat Interceptors (Air Threat Card)",
+      "card_type": "threat",
+      "deck": "threat",
+      "target_categories": [
+        "support"
+      ],
+      "strength": 5,
+      "usage_mode": "attack_and_effect",
+      "effects": [
+        {
+          "type": "chance_to_engage",
+          "trigger": "on_engage",
+          "duration": "engagement",
+          "target": "support_card_played_on_source",
+          "probability": 0.5,
+          "on_success": "engage",
+          "on_failure": "destroy_for_phase"
+        }
+      ],
+      "description": "Iranian F-14s patrol the skies, using long-range phoenix missiles to engage",
+      "source_text": {
+        "category": "Phase 4 Threat",
+        "targeted_category": "Support",
+        "strength_points": "5",
+        "effect": "support cards played on this must flip the \"chance token\" to engage (coin flip 50/50, if successful, card engaged, else support card destroyed for phase)"
+      },
+      "needs_review": false,
+      "phase": 4,
+      "threat_categories": [
+        "air"
+      ]
+    }
+  ]
+}
